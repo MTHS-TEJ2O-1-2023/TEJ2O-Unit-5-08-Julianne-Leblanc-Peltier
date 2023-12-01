@@ -10,8 +10,9 @@ let distanceToObject: number = 0
 // setup
 basic.showIcon(IconNames.Happy)
 
+// loop
 while (true) {
-  if (input.buttonIsPressed(Button.A) === true) {
+  if (input.buttonIsPressed(Button.A) == true) {
     basic.clearScreen()
     while (true) {
       // find distance from sonar
@@ -20,16 +21,12 @@ while (true) {
         DigitalPin.P2,
         PingUnit.Centimeters
       )
-      // basic.showNumber(distanceToObject)
-      // basic.pause(500)
-      // basic.showIcon(IconNames.Happy)
+      basic.showNumber(distanceToObject)
+      // if distance is less than 10, turn car and keep driving
       if (distanceToObject < 10) {
         robotbit.StpCarMove(-10, 48)
-        basic.pause(500)
         robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B4)
-        basic.pause(500)
         robotbit.StepperTurn(robotbit.Steppers.M2, robotbit.Turns.T1B4)
-        basic.pause(500)
         robotbit.StpCarMove(10, 48)
         } else {
           // move forward
