@@ -2,36 +2,39 @@
  *
  * Created by: Julianne Leblanc-Peltier
  * Created on: Nov 2023
- * This program ...
+ * This program does stuff
 */
 
-let distanceToObject: number = 0
+// variables
+let distanceFromObject: number = 0
 
 // setup
 basic.showIcon(IconNames.Happy)
 
-// loop
 while (true) {
-  if (input.buttonIsPressed(Button.A) == true) {
+  if (input.buttonIsPressed(Button.A) === true) {
     basic.clearScreen()
     while (true) {
-      // find distance from sonar
-      distanceToObject = sonar.ping(
+      // find distance with sonar
+      distanceFromObject = sonar.ping(
         DigitalPin.P1,
         DigitalPin.P2,
         PingUnit.Centimeters
       )
-      basic.showNumber(distanceToObject)
-      // if distance is less than 10, turn car and keep driving
-      if (distanceToObject < 10) {
-        robotbit.StpCarMove(-10, 48)
-        robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B4)
-        robotbit.StepperTurn(robotbit.Steppers.M2, robotbit.Turns.T1B4)
+      basic.showNumber(distanceFromObject)
+      basic.showString('cm')
+      basic.pause(500)
+      basic.showIcon(IconNames.Happy)
+
+      // turning 90 degrees
+      if (distanceFromObject < 10) {
+        robotbit.StpCarTurn(90, 48, 125)
+        basic.pause(500)
         robotbit.StpCarMove(10, 48)
-        } else {
-          // move forward
-          robotbit.StpCarMove(10, 48)
-        }
+      } else {
+        // continue moving 10 cm before checking distance from objects
+        robotbit.StpCarMove(10, 48)
+      }
     }
   }
 }
